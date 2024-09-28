@@ -8,6 +8,7 @@ pyboy.tick()
 
 # Control mapping with weights
 frame_count_target = 30
+button_press_length = 15
 weightedControlMap = {
     0: 'a', # a = 4 occurrences
     1: 'a',
@@ -68,9 +69,9 @@ while not keyboard.is_pressed('esc'):  # Run until Escape is pressed
 
         # Map the result to controls
         control_choice = euler_digit % 10  # Total weight is 4 + 2*5 + 1 = 11
-        pyboy.button(weightedControlMap[control_choice], 30)  # Send the mapped control input
+        pyboy.button(weightedControlMap[control_choice], button_press_length)  # Send the mapped control input
         print("Pressed: " + weightedControlMap[control_choice] + " Digit: " + str(euler_digit))
-        for _ in range(30):
+        for _ in range(button_press_length):
             pyboy.tick()
         frame_count = 0  # Reset frame count for the next iteration
 
