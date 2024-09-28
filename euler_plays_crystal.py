@@ -3,9 +3,11 @@ import keyboard  # Import keyboard library for key detection
 from Algorithms.eulers_number import calc_next_digit_of_euler, factorial
 
 pyboy = PyBoy("ROMs/Pokemon - Crystal Version.gbc")
-pyboy.set_emulation_speed(0)
+pyboy.set_emulation_speed(4)
+pyboy.tick()
 
 # Control mapping with weights
+frame_count_target = 30
 weightedControlMap = {
     0: 'a', # a = 4 occurrences
     1: 'a',
@@ -24,20 +26,38 @@ euler_sum = 0
 euler_term = 0
 euler_digit = 0
 
+
 # Open the file to read Euler digits
 with open("Algorithms/euler_digits.txt", "r") as file:
     euler_digits = file.read().strip()  # Read all digits as a string
     current_index = 0  # Initialize index to track the current digit
 
+# Manual mode variable
+manual_mode = True
+
 while not keyboard.is_pressed('esc'):  # Run until Escape is pressed
     frame_count = 0
-    while frame_count < 60:
+    while frame_count < frame_count_target:
 
         pyboy.tick()  # Process the emulator
         
-        frame_count += 1
+        # Check for Page Up key to toggle manual mode
+        if keyboard.is_pressed('page up'):
+            manual_mode = False  # Toggle manual mode
+            print("Manual mode:", manual_mode)
+            pyboy.set_emulation_speed(0)
 
-    if frame_count == 60:
+        # Check for Page Down key to toggle manual mode
+        if keyboard.is_pressed('page down'):
+            manual_mode = True  # Toggle manual mode
+            print("Manual mode:", manual_mode)
+            pyboy.set_emulation_speed(2)
+
+        if not manual_mode:  # Only progress if not in manual mode
+            frame_count += 1
+            
+
+    if frame_count == frame_count_target and not manual_mode:
         # Get the next Euler digit from the file
         euler_digit = int(euler_digits[current_index])  # Read the next digit
         current_index += 1  # Move to the next digit
@@ -49,7 +69,7 @@ while not keyboard.is_pressed('esc'):  # Run until Escape is pressed
         # Map the result to controls
         control_choice = euler_digit % 10  # Total weight is 4 + 2*5 + 1 = 11
         pyboy.button(weightedControlMap[control_choice], 30)  # Send the mapped control input
-        print(weightedControlMap[control_choice], control_choice, euler_digit)
+        print("Pressed: " + weightedControlMap[control_choice] + " Digit: " + str(euler_digit))
         for _ in range(30):
             pyboy.tick()
         frame_count = 0  # Reset frame count for the next iteration

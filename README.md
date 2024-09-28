@@ -12,8 +12,8 @@ This project uses the PyBoy emulator to play Pokémon Crystal while calculating 
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
-   cd <repository-directory>
+   git clone https://github.com/Connor-Miller/algorithms_play_games.git
+   cd algorithms_play_games
    ```
 
 2. Install the required dependencies:
