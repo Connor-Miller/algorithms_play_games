@@ -7,8 +7,8 @@ pyboy.set_emulation_speed(4)
 pyboy.tick()
 
 # Control mapping with weights
-frame_count_target = 30
-button_press_length = 15
+frame_count_target = 60
+button_press_length = 30
 weightedControlMap = {
     0: 'a', # a = 2 occurrences
     1: 'a',
@@ -43,7 +43,7 @@ while not keyboard.is_pressed('esc'):  # Run until Escape is pressed
         if keyboard.is_pressed('page up'):
             manual_mode = False  # Toggle manual mode
             print("Manual mode:", manual_mode)
-            pyboy.set_emulation_speed(0)
+            pyboy.set_emulation_speed(8)
 
         # Check for Page Down key to toggle manual mode
         if keyboard.is_pressed('page down'):
