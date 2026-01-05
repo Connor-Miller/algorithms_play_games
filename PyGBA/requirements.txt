@@ -1,0 +1,6 @@
+pygba>=0.2.9
+numpy>=1.24.0
+pillow>=10.0.0
+pytesseract>=0.3.10
+typing-extensions>=4.5.0
+

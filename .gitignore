@@ -1,1 +1,10 @@
 ROMs/
+PyBoy/ROMs/
+PyGBA/ROMs/
+
+# GBA automation outputs
+PyGBA/examples/screenshots/
+PyGBA/examples/saves/
+*.state
+__pycache__/
+*.pyc
